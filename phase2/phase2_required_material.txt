@@ -1,0 +1,3 @@
+Revised project idea: dependent on our meeting with Hanna on 10/18
+Open questions: dependent on out meeting with Hanna on 10/18
+Software installed: Postgres

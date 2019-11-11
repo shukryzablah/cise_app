@@ -1,0 +1,8 @@
+Role Assignment
+
+Noah and Billy: UI mockup and project specification discussion with Hanna
+Shukry and Brandt: finalize relational schema
+Brandt: create and populate tables
+All: devise example SQL queries
+
+All together: inspect/contribute to other's work

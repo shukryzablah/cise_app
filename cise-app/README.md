@@ -12,6 +12,7 @@
 
 1. Make sure to operate in python venv. Do `source ./venv/bin/activate` (Note: you can deactivate with `deactivate`)
 2. To run the server: `export FLASK_ENV=development && flask run`
+3. To run the shell: `export FLASK_ENV=development && flask shell`
 3. If something didn't work make sure to do `pip install -r requirements.txt` or see how to add env variable
 
 ## Modified Database? 

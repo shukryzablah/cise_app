@@ -1,3 +1,0 @@
-# Cise
-
-## Development Instructions

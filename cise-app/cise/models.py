@@ -4,10 +4,54 @@ from cise import db
 
 class Example(db.Model):
     __tablename__ = 'example'
-    id = Column(Integer, primary_key=True)
+    eid = Column(Integer, primary_key=True)
     text = Column(String)
     date_created = Column(Date)
 
     def __repr__(self):
         return "<Example(text='{}', date='{}')>"\
                 .format(self.text, self.date_created)
+
+
+class Student(db.Model):
+    __tablename__ = 'student'
+    sid = Column(String, primary_key=True)
+    date_of_birth = Column(Date)
+    preferred_name = Column(String)
+    legal_first = Column(String)
+    legal_middle = Column(String)
+    legal_last = Column(String)
+    sex = Column(String)
+    class_year = Column(Integer)
+    ac_box = Column(String)
+    ac_email = Column(String)
+    sevis_id = Column(String)
+    sevis_status = Column(String)
+    program_start_date = Column(Date)
+    program_end_date = Column(Date)
+
+    def __repr__(self):
+        return "<Student(sid={}, class_year={})>".format(self.sid,
+                                                         self.class_year)
+
+
+class Major(db.Model):
+    __tablename__ = 'major'
+    cip_code = Column(String, primary_key=True)
+    name = Column(String)
+
+    def __repr__(self):
+        return "<Major(cip_code={}, name={})>".format(self.cip_code,
+                                                      self.name)
+
+
+class Passport(db.Model):
+    __tablename__ = 'passport'
+    number = Column(String, primary_key=True)
+    country = Column(String)
+    date_of_issue = Column(Date)
+    date_of_expiration = Column(Date)
+
+    def __repr__(self):
+        return "<Passport(number={}, country={})>".format(self.number,
+                                                          self.country)

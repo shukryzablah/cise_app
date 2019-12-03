@@ -34,3 +34,20 @@ For help run `flask db --help`
 
 1. Say in groupchat. 
 2. If someone says they did, add to .env file.
+
+# FAQ
+
+## How do I add a model? 
+
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
+
+## How do I select/insert/delete data? 
+
+Through our flask project
+
+https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
+
+In postgres, through a csv:
+
+https://stackoverflow.com/questions/2987433/how-to-import-csv-file-data-into-a-postgresql-table
+

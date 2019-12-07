@@ -29,12 +29,19 @@ class Student(db.Model):
     sevis_status = Column(String)
     program_start_date = Column(Date)
     program_end_date = Column(Date)
+
     passport_id = db.relationship('Passport', backref='student', lazy=True)
 
     def __repr__(self):
         return "<Student(sid={}, class_year={})>".format(self.sid,
                                                          self.class_year)
-
+    def serialize(self):
+        return {
+            'sid': self.sid,
+            'legal_first': self.legal_first,
+            'legal_last': self.legal_last,
+            'passport_id': self.passport_id
+        }
 
 class Major(db.Model):
     __tablename__ = 'major'
@@ -58,3 +65,11 @@ class Passport(db.Model):
     def __repr__(self):
         return "<Passport(number={}, country={})>".format(self.number,
                                                           self.country)
+
+    def serialize(self):
+        return {
+            'number': self.number,
+            'country': self.country,
+            'date_of_expiration': self.date_of_expiration,
+            'student_sid': student_sid
+        }

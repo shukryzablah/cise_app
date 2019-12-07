@@ -39,6 +39,7 @@ class Major(db.Model):
     __tablename__ = 'major'
     cip_code = Column(String, primary_key=True)
     name = Column(String)
+    abbreviation = Column(String)
 
     def __repr__(self):
         return "<Major(cip_code={}, name={})>".format(self.cip_code,

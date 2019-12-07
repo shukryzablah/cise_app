@@ -15,7 +15,7 @@ class Example(db.Model):
 
 class Student(db.Model):
     __tablename__ = 'student'
-    sid = Column(String, primary_key=True)
+    sid = Column(Integer, primary_key=True)
     date_of_birth = Column(Date)
     preferred_name = Column(String)
     legal_first = Column(String)
@@ -29,6 +29,7 @@ class Student(db.Model):
     sevis_status = Column(String)
     program_start_date = Column(Date)
     program_end_date = Column(Date)
+    passport_id = db.relationship('Passport', backref='student', lazy=True)
 
     def __repr__(self):
         return "<Student(sid={}, class_year={})>".format(self.sid,
@@ -52,6 +53,7 @@ class Passport(db.Model):
     country = Column(String)
     date_of_issue = Column(Date)
     date_of_expiration = Column(Date)
+    student_sid = db.Column(Integer, db.ForeignKey('student.sid'))
 
     def __repr__(self):
         return "<Passport(number={}, country={})>".format(self.number,

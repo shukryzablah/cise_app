@@ -5,8 +5,9 @@
 1. Clone Github repository
 2. Go to the dev subdirectory in the repo
 3. (python > 3.6.8) Create a python virtual environment called venv 
-4. Do pip install -r requirements.txt
-5. ask groupchat for .env file and put it in dev folder
+4. Do source ./venv/bin/activate
+5. Do pip install -r requirements.txt
+6. ask groupchat for .env file and put it in dev folder
 
 ## Developing
 
@@ -34,20 +35,3 @@ For help run `flask db --help`
 
 1. Say in groupchat. 
 2. If someone says they did, add to .env file.
-
-# FAQ
-
-## How do I add a model? 
-
-https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/
-
-## How do I select/insert/delete data? 
-
-Through our flask project
-
-https://flask-sqlalchemy.palletsprojects.com/en/2.x/queries/
-
-In postgres, through a csv:
-
-https://stackoverflow.com/questions/2987433/how-to-import-csv-file-data-into-a-postgresql-table
-

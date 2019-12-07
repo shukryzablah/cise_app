@@ -36,9 +36,6 @@ class Student(db.Model):
         return "<Student(sid={}, class_year={})>".format(self.sid,
                                                          self.class_year)
     def serialize(self):
-        passport_list = []
-        for i in range(len(self.passport_id)):
-            passport_list.append(self.passport_id[i].serialize())
         passport_list = [passport.serialize() for passport in self.passport_id]
         return {
             'sid': self.sid,

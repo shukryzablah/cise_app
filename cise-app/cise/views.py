@@ -4,7 +4,7 @@ from cise.models import *
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!!'
+    return Passport.query.with_entities(Passport.country).distinct()
 
 @app.route('/brandt')
 def brandt_route():

@@ -36,13 +36,18 @@ class Student(db.Model):
         return "<Student(sid={}, class_year={})>".format(self.sid,
                                                          self.class_year)
     def serialize(self):
+        passport_list = []
+        for i in range(len(self.passport_id)):
+            passport_list.append(self.passport_id[i].serialize())
+        passport_list = [passport.serialize() for passport in self.passport_id]
         return {
             'sid': self.sid,
             'legal_first': self.legal_first,
             'legal_last': self.legal_last,
-            'passport_id': self.passport_id
+            'passport_id': passport_list
         }
-
+       
+        
 class Major(db.Model):
     __tablename__ = 'major'
     cip_code = Column(String, primary_key=True)
@@ -71,5 +76,5 @@ class Passport(db.Model):
             'number': self.number,
             'country': self.country,
             'date_of_expiration': self.date_of_expiration,
-            'student_sid': student_sid
+            'student_sid': self.student_sid
         }

@@ -1,7 +1,7 @@
 from cise import app
 from cise.models import Student, Passport
 
-from flask import jsonify, request, redirect, url_for, render_template
+from flask import jsonify, request, redirect, url_for, render_template, json
 
 
 @app.route('/')
@@ -32,15 +32,14 @@ def get_student_passport():
 @app.route('/search', methods=['POST'])
 def handle_search_request():
     return redirect(
-        url_for("get_search_results", **request.form, _method="GET")
+        url_for("render_results", **request.form, _method="GET")
     )
 
 
-@app.route('/search-results', methods=["GET", "POST"])
-def get_search_results():
+def get_search_results(**kwargs):
     # First get possible values to filter by.
-    first_name = request.args.get("first", None)
-    country = request.args.get("country", None)
+    first_name = kwargs.pop("first_name", None)
+    country = kwargs.pop("country", None)
     # Then construct the appropriate query by filtering.
     query = Student.query.join(Student.passport_id)
     if(first_name is not None and first_name != ""):
@@ -49,4 +48,14 @@ def get_search_results():
         query = query.filter(Passport.country == country)
     # Execute the query and return response.
     results = query.all()
-    return jsonify([result.serialize() for result in results])
+    return json.dumps([result.serialize() for result in results])
+
+
+@app.route('/search-results')
+def render_results():
+    first_name = request.args.get("first", None)
+    country = request.args.get("country", None)
+    results = get_search_results(first_name=first_name,
+                                 country=country)
+    return render_template("results.html", data=results)
+    

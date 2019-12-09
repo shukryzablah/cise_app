@@ -44,7 +44,26 @@ class Student(db.Model):
             'passport_id': passport_list
         }
        
-        
+class Visa(db.Model):
+    __tablename__ = 'Visa'
+    visa_num = Column(Integer, primary_key=True)
+    date_of_issue = Column(Date)
+    date_of_expiration = Column(Date)
+    visa_type = Column(String)
+    file_path = Column(String)
+
+    def __repr__(self):
+        return "<Visa(visa_num={})>".format(self.visa_num)
+
+    def serialize(self):
+        return {
+            'visa_num': self.visa_num,
+            'date_of_issue': self.date_of_issue,
+            'date_of_expiry': self.date_of_expiration,
+            'file_path': self.file_path
+        }
+ 
+            
 class Major(db.Model):
     __tablename__ = 'major'
     cip_code = Column(String, primary_key=True)

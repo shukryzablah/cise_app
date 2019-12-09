@@ -74,7 +74,33 @@ class Major(db.Model):
         return "<Major(cip_code={}, name={})>".format(self.cip_code,
                                                       self.name)
 
+class Note(db.Model):
+    __tablename__ = 'Note'
+    note_id = Column(Integer, primary_key=True)
+    date_created = Column(Date)
+    content = Column(String)
 
+    def __repr__(self):
+        return "<Note(note_id={}, content={})>".format(self.note_id, self.content)
+
+    def serialize(self):
+        return {
+            'note_id': self.note_id,
+            'date_created': self.date_created,
+            'content': self.content
+        }
+
+class Staff(db.Model):
+    __tablename__ = 'Staff'
+    staff_id = Column(Integer, primary_key=True)
+    
+    def __repr__(self):
+        return "<Staff(staff_id={})>".format(self.staff_id)
+
+    def serialize(self):
+        return {
+            'staff_id': self.staff_id
+        }
 class Passport(db.Model):
     __tablename__ = 'passport'
     number = Column(String, primary_key=True)

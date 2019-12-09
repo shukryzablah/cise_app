@@ -1,6 +1,6 @@
 ###################################
 # Create database entries easily. #
-###################################
+##############################
 
 # 1. Make a function to create a bogus entry.
 # 2. Make many of those.
@@ -20,7 +20,7 @@ def create_student():
                    sex="Male",class_year=fake.year(),
                    ac_email=fake.email(),
                    sevis_id=fake.random_int(min=1,max=10000000,step=1),
-                   sevis_status="active",
+              sevis_status="active",
                    program_start_date=fake.date_this_decade(after_today=True),
                    program_end_date=fake.date_this_decade(after_today=True)
     )
@@ -31,3 +31,10 @@ def create_passport(sid):
                     date_of_issue=fake.date_this_decade(before_today=True),
                     date_of_expiration=fake.date_this_decade(),
                     student_sid=sid)
+
+def create_visa(sid):
+    return Visa(visa_num=fake.random_int(min=2, max=10000000, step=1),
+                date_of_issue=fake.date_this_decade(before_today=True),
+                date_of_expiration=fake.date_this_decade(),
+                visa_type="OPT",
+                file_path="test/file-path")

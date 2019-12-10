@@ -31,6 +31,10 @@ class Student(db.Model):
     program_end_date = Column(Date)
 
     passport_id = db.relationship('Passport', backref='student', lazy=True)
+    visa_id = db.relationship('Visa', backref='student', lazy=True)
+    note_id = db.relationship('Note', backref='student', lazy=True)
+    major_id = db.relationship('Major', backref='student', lazy=True)
+
 
     def __repr__(self):
         return "<Student(sid={}, class_year={})>".format(self.sid,

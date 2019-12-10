@@ -38,3 +38,8 @@ def create_visa(sid):
                 date_of_expiration=fake.date_this_decade(),
                 visa_type="OPT",
                 file_path="test/file-path")
+
+def create_note(sid):
+    return Note(note_id=fake.random_int(min=2, max=10000000, step=1),
+                date_created=fake.date_this_decade(before_today=True),
+                content=fake.sentence())

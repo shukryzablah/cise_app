@@ -1,7 +1,6 @@
 from cise import app
 from cise.models import Student, Passport
 #from cise.models import Example
-
 from flask import jsonify, request, redirect, url_for, render_template, json
 
 
@@ -73,4 +72,5 @@ def render_results():
 @app.route('/student/<int:sid>')
 def get_student_profile(sid):
     return render_template("profile.html", sid=sid)
+
 

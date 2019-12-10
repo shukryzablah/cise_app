@@ -1,5 +1,6 @@
 from cise import app
-from cise.models import Student, Passport
+#from cise.models import Student, Passport
+from cise.models import Example
 
 from flask import jsonify, request, redirect, url_for, render_template, json
 
@@ -8,11 +9,11 @@ from flask import jsonify, request, redirect, url_for, render_template, json
 def render_home():
     return render_template("home.html")
 
-
+'''
 @app.route('/hello')
 def hello_world():
     return Passport.query.with_entities(Passport.country).distinct()
-
+'''
 
 @app.route('/brandt')
 def brandt_route():
@@ -23,12 +24,12 @@ def brandt_route():
 def test_route():
     return render_template("layout.html")
 
-
+'''
 @app.route('/get-student-passport')
 def get_student_passport():
     join = Student.query.join(Passport).first()
     return jsonify(join.serialize())
-
+'''
 
 #####################################################
 # Handle the search from homepage and the response. #
@@ -40,7 +41,7 @@ def handle_search_request():
         url_for("render_results", **request.form, _method="GET")
     )
 
-
+'''
 def get_search_results(**kwargs):
     # First get possible values to filter by.
     first_name = kwargs.pop("first_name", None)
@@ -64,11 +65,12 @@ def render_results():
                                  country=country)
     return render_template("results.html", data=results)
 
-
+'''
 ##################################
 # Handle the individual profiles #
 ##################################
-
+'''
 @app.route('/student/<int:sid>')
 def get_student_profile(sid):
     return render_template("profile.html", sid=sid)
+'''

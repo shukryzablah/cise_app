@@ -45,6 +45,7 @@ migrate = Migrate(app, db)
 ###################
 
 #from cise.models import Example, Student, Major, Passport
+from cise.models import Example
 ######################
 # retrieve app views #
 ######################
@@ -54,8 +55,13 @@ import cise.views
 ###################################
 # add automatic imports for shell #
 ###################################
-
+'''
 @app.shell_context_processor
 def make_shell_context():
     return dict(app=app, db=db, Example=Example, Student=Student,
                 Major=Major, Passport=Passport)
+
+'''
+@app.shell_context_processor
+def make_shell_context():
+    return dict(app=app, db=db, Example=Example)

@@ -12,7 +12,6 @@ class Example(db.Model):
         return "<Example(text='{}', date='{}')>"\
                 .format(self.text, self.date_created)
 
-
 class Student(db.Model):
     __tablename__ = 'student'
     sid = Column(Integer, primary_key=True)
@@ -107,7 +106,7 @@ class Staff(db.Model):
         }
 class Passport(db.Model):
     __tablename__ = 'passport'
-    number = Column(String, primary_key=True)
+    number = Column(Integer, primary_key=True)
     country = Column(String)
     date_of_issue = Column(Date)
     date_of_expiration = Column(Date)
@@ -122,5 +121,5 @@ class Passport(db.Model):
             'number': self.number,
             'country': self.country,
             'date_of_expiration': self.date_of_expiration,
-            'student_sid': self.student_sid
+            #'student_sid': self.student_sid
         }

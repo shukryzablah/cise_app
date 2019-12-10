@@ -24,14 +24,14 @@ def upgrade():
     sa.PrimaryKeyConstraint('cip_code')
     )
     op.create_table('passport',
-    sa.Column('number', sa.String(), nullable=False),
+    sa.Column('number', sa.Integer(), nullable=False),
     sa.Column('country', sa.String(), nullable=True),
     sa.Column('date_of_issue', sa.Date(), nullable=True),
     sa.Column('date_of_expiration', sa.Date(), nullable=True),
     sa.PrimaryKeyConstraint('number')
     )
     op.create_table('student',
-    sa.Column('sid', sa.String(), nullable=False),
+    sa.Column('sid', sa.Integer(), nullable=False),
     sa.Column('date_of_birth', sa.Date(), nullable=True),
     sa.Column('preferred_name', sa.String(), nullable=True),
     sa.Column('legal_first', sa.String(), nullable=True),

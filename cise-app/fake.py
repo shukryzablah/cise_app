@@ -9,37 +9,39 @@
 
 from faker import Faker
 fake = Faker()
+from cise.models import Student, Visa, Major, Note, Staff, Passport
+class DataGen:
+    def create_student(self):
+        return Student(sid=fake.random_int(min=2, max=1000000,step=1),
+                       date_of_birth=fake.date_of_birth(),
+                       preferred_name=fake.first_name(),
+                       legal_first=fake.first_name(),
+                       legal_middle=fake.first_name(),
+                       legal_last=fake.last_name(),
+                       sex="Male",class_year=fake.year(),
+                       ac_email=fake.email(),
+                       sevis_id=fake.random_int(min=1,max=10000000,step=1),
+                  sevis_status="active",
+                       program_start_date=fake.date_this_decade(after_today=True),
+                       program_end_date=fake.date_this_decade(after_today=True)
+        )
 
-def create_student():
-    return Student(sid=fake.random_int(min=2, max=1000000,step=1),
-                   date_of_birth=fake.date_of_birth(),
-                   preferred_name=fake.first_name(),
-                   legal_first=fake.first_name(),
-                   legal_middle=fake.first_name(),
-                   legal_last=fake.last_name(),
-                   sex="Male",class_year=fake.year(),
-                   ac_email=fake.email(),
-                   sevis_id=fake.random_int(min=1,max=10000000,step=1),
-              sevis_status="active",
-                   program_start_date=fake.date_this_decade(after_today=True),
-                   program_end_date=fake.date_this_decade(after_today=True)
-    )
+    def create_passport(self, sid):
+        return Passport(number=fake.hexify(text="^^^^^^", upper=True),
+                        country=fake.country(),
+                        date_of_issue=fake.date_this_decade(before_today=True),
+                        date_of_expiration=fake.date_this_decade(),
+                        student_sid=sid)
 
-def create_passport(sid):
-    return Passport(number=fake.hexify(text="^^^^^^", upper=True),
-                    country=fake.country(),
+    def create_visa(self, sid):
+        return Visa(visa_num=fake.random_int(min=2, max=10000000, step=1),
                     date_of_issue=fake.date_this_decade(before_today=True),
                     date_of_expiration=fake.date_this_decade(),
-                    student_sid=sid)
+                    visa_type="OPT",
+                    file_path="test/file-path")
 
-def create_visa(sid):
-    return Visa(visa_num=fake.random_int(min=2, max=10000000, step=1),
-                date_of_issue=fake.date_this_decade(before_today=True),
-                date_of_expiration=fake.date_this_decade(),
-                visa_type="OPT",
-                file_path="test/file-path")
+    def create_note(self, sid):
+        return Note(note_id=fake.random_int(min=2, max=10000000, step=1),
+                    date_created=fake.date_this_decade(before_today=True),
+                    content=fake.sentence())
 
-def create_note(sid):
-    return Note(note_id=fake.random_int(min=2, max=10000000, step=1),
-                date_created=fake.date_this_decade(before_today=True),
-                content=fake.sentence())

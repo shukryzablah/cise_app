@@ -1,42 +1,46 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>CISE Student Directory</title>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-</head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+  </head>
 
 
-<body>
-  <table id="studentstbl" class="table table-striped table-bordered">
-    <thead>
-      <tr>
-	<th>Student ID</th>
-	<th>First Name</th>
-	<th>Last Name</th>
-      </tr>
-    </thead>
-  </table>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-  <script>
-    var table_data = {{data | safe}}
-    $(document).ready(function () {
-      var table = $('#studentstbl').DataTable({
-	    "data": table_data,
-	    "columns": [
-		    {"data": "sid"},
-        {"data": "legal_first"},
-        {"data": "legal_last"}
-	    ]
-      });
+  <body>
+    <table id="studentstbl" class="table table-striped table-bordered">
+      <thead>
+	<tr>
+	  <th>Student ID</th>
+	  <th>First Name</th>
+	  <th>Last Name</th>
+	</tr>
+      </thead>
+    </table>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+    <script>
+      var table_data = {{data | safe}}
+      $(document).ready(function () {
+	  var table = $('#studentstbl').DataTable({
+	      "select": true,
+	      "data": table_data,
+	      "columns": [
+		  {"data": "sid"},
+		  {"data": "legal_first"},
+		  {"data": "legal_last"}
+	      ]
+	  });
 
+<<<<<<< HEAD
         $('#studentstbl').on('click', 'tr', function() {
             var data = table.row(this).data();
             var sid = data['sid'];
@@ -45,5 +49,4 @@
     });
   </script>
 </body>
-
 </html>

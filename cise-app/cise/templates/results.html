@@ -28,13 +28,18 @@
   <script>
     var table_data = {{data | safe}}
     $(document).ready(function () {
-        $('#studentstbl').DataTable({
+      var table = $('#studentstbl').DataTable({
 	    "data": table_data,
 	    "columns": [
-		{"data": "sid"},
-                {"data": "legal_first"},
-                {"data": "legal_last"}
+		    {"data": "sid"},
+        {"data": "legal_first"},
+        {"data": "legal_last"}
 	    ]
+      });
+
+        $('#studentstbl').on('click', 'tr', function() {
+          var data = table.row(this).data();
+          alert('You clicked on '+data[0]+'\'s row');
         });
     });
   </script>

@@ -19,6 +19,11 @@ def brandt_route():
     return 'welcome to my route'
 
 
+@app.route('/test')
+def test_route():
+    return render_template("layout.html")
+
+
 @app.route('/get-student-passport')
 def get_student_passport():
     join = Student.query.join(Passport).first()

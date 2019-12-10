@@ -29,20 +29,20 @@ class Student(db.Model):
     program_start_date = Column(Date)
     program_end_date = Column(Date)
 
-    #passport_id = db.relationship('Passport', backref='student', lazy=True)
-    #visa_id = db.relationship('Visa', backref='student', lazy=True)
-    #note_id = db.relationship('Note', backref='student', lazy=True)
+    passport_id = db.relationship('Passport', backref='student', lazy=True)
+    visa_id = db.relationship('Visa', backref='student', lazy=True)
+    note_id = db.relationship('Note', backref='student', lazy=True)
 
     def __repr__(self):
         return "<Student(sid={}, class_year={})>".format(self.sid,
                                                          self.class_year)
     def serialize(self):
-        #passport_list = [passport.serialize() for passport in self.passport_id]
+        passport_list = [passport.serialize() for passport in self.passport_id]
         return {
             'sid': self.sid,
             'legal_first': self.legal_first,
             'legal_last': self.legal_last,
-            #'passport_id': passport_list
+            'passport_id': passport_list
         }
        
 class Visa(db.Model):
@@ -52,7 +52,7 @@ class Visa(db.Model):
     date_of_expiration = Column(Date)
     visa_type = Column(String)
     file_path = Column(String)
-    #student_sid = Column(Integer, db.ForeignKey('student.sid'))
+    student_sid = Column(Integer, db.ForeignKey('student.sid'))
 
     def __repr__(self):
         return "<Visa(visa_num={})>".format(self.visa_num)
@@ -62,7 +62,8 @@ class Visa(db.Model):
             'visa_num': self.visa_num,
             'date_of_issue': self.date_of_issue,
             'date_of_expiry': self.date_of_expiration,
-            'file_path': self.file_path
+            'file_path': self.file_path,
+            'student_sid': self.student_sid
         }
  
             
@@ -81,7 +82,7 @@ class Note(db.Model):
     note_id = Column(Integer, primary_key=True)
     date_created = Column(Date)
     content = Column(String)
-    #student_sid = Column(String, db.ForeignKey('student.sid'))
+    student_sid = Column(Integer, db.ForeignKey('student.sid'))
 
     def __repr__(self):
         return "<Note(note_id={}, content={})>".format(self.note_id, self.content)
@@ -90,7 +91,8 @@ class Note(db.Model):
         return {
             'note_id': self.note_id,
             'date_created': self.date_created,
-            'content': self.content
+            'content': self.content,
+            'student_sid': self.student_sid
         }
 
 class Staff(db.Model):
@@ -104,13 +106,14 @@ class Staff(db.Model):
         return {
             'staff_id': self.staff_id
         }
+
 class Passport(db.Model):
     __tablename__ = 'passport'
     number = Column(Integer, primary_key=True)
     country = Column(String)
     date_of_issue = Column(Date)
     date_of_expiration = Column(Date)
-    #student_sid = Column(Integer, db.ForeignKey('student.sid'))
+    student_sid = Column(Integer, db.ForeignKey('student.sid'))
 
     def __repr__(self):
         return "<Passport(number={}, country={})>".format(self.number,
@@ -121,5 +124,5 @@ class Passport(db.Model):
             'number': self.number,
             'country': self.country,
             'date_of_expiration': self.date_of_expiration,
-            #'student_sid': self.student_sid
+            'student_sid': self.student_sid
         }

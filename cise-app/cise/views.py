@@ -58,4 +58,12 @@ def render_results():
     results = get_search_results(first_name=first_name,
                                  country=country)
     return render_template("results.html", data=results)
-    
+
+
+##################################
+# Handle the individual profiles #
+##################################
+
+@app.route('/student/<int:sid>')
+def get_student_profile(sid):
+    return render_template("profile.html", sid=sid)

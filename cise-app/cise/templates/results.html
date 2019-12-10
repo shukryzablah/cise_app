@@ -38,9 +38,9 @@
       });
 
         $('#studentstbl').on('click', 'tr', function() {
-          var data = table.row(this).data();
-          var sid = data['sid'];
-          $.post("/student/" + sid);
+            var data = table.row(this).data();
+            var sid = data['sid'];
+	    window.location.href = "/student/" + sid;
         });
     });
   </script>

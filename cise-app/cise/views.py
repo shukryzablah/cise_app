@@ -83,7 +83,22 @@ def get_student_profile(sid):
     student = Student.query.filter(Student.sid == sid).all()
     # student = student.join(Student.passport_id).join(Student.visa_id).join(Student.note_id).join(Student.majors)
     data = json.dumps([student.serialize_full() for student in student])
-    return render_template("profile.html", data=data)
+    return render_template("profile.html", data=data, sid=sid)
+
+
+@app.route('/add-note/<int:sid>', methods=['POST'])
+def handle_note_creation(sid):
+    # Add note to student in database
+    s = Student.query.filter(Student.sid == sid).first()
+    n = Note(content=request.form.get("notecontent"))
+    db.session.add(n)
+    db.session.commit()
+    s.note_id.append(n)
+    db.session.add(s)
+    db.session.commit()
+    return redirect(
+        url_for("get_student_profile", sid=sid, _method="GET")
+    )
 
 
 ################

@@ -11,7 +11,10 @@ from flask import jsonify, request, redirect, url_for, render_template, json
 def render_home():
     countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
     countries = [country[0] for country in countries]
-    return render_template("home.html", data=countries)
+
+    majors = Major.query.with_entities(Major.name).distinct().order_by(Major.name).all()
+    majors = [major[0] for major in majors]
+    return render_template("home.html", countries=countries, majors=majors)
 
 @app.route('/search', methods=['POST'])
 def handle_search_request():
@@ -72,7 +75,9 @@ def render_results():
 def get_student_profile(sid):
     # join on all info
     student = Student.query.filter(Student.sid == sid).all()
-    return render_template("profile.html", student=student)
+    # student = student.join(Student.passport_id).join(Student.visa_id).join(Student.note_id).join(Student.majors)
+    data = json.dumps([student.serialize() for student in student])
+    return render_template("profile.html", data=data)
 
 
 #########

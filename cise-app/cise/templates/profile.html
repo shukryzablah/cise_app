@@ -1,6 +1,32 @@
 {% extends "layout.html" %}
 {% block view %}
-<p>This is the student's id: {{student}}</p>
+<div class="flex-column">
+    <h1 id="name">James Richard Johnson (Jimmy)</h1>
+    <table id="info" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th id="sid">Student ID</th>
+                <th>Legal First Name</th>
+                <th>Legal Middle Name</th>
+                <th>Legal Last Name</th>
+                <th>Preferred Name</th>
+                <th>Date of Birth</th>
+                <th>Sex</th>
+                <th>Class Year</th>
+                <th>AC Box Number</th>
+                <th>AC Email</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    var info = {{data | safe}}
+    console.log(info);
+    sid = info[0].legal_first;
+    console.log(sid);
+    $(document).getElementById('sid').innerHTML = sid;
+</script>
 {% endblock %}
 
 

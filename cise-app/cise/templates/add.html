@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block view %}
+<form action="{{ url_for('handle_search_request') }}" method="POST">
+        <div class="row">
+      <div class="col">
+        <label for="first">First Name</label>
+        <input class="form-control" type="text" placeholder="First Name" id="first" name="first">
+      </div>
+      <div class="col">
+        <label for="last">Last Name</label>
+        <input class="form-control" type="text" placeholder="Last Name" id="last" name="last">
+      </div>
+        </div>
+        <div class="row">
+      <div class="col">
+        <label for="country">Country of Origin</label>
+        <select class="form-control" id="country" name="country">
+              <option value=""> - </option>
+              <option>El Salvador</option>
+              <option>Germany</option>
+              <option>South Korea</option>
+        </select>
+      </div>
+      <div class="col">
+        <label for="major">Major</label>
+        <select class="form-control" id="major" name="major">
+              <option value=""> - </option>
+              <option>STAT</option>
+              <option>COSC</option>
+              <option>MATH</option>
+        </select>
+      </div>
+        </div>
+        <hr>
+        <div class="row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+        </div>
+</form>
+{% endblock %}
+// except sid

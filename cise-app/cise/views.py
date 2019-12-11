@@ -21,7 +21,6 @@ def get_search_results(**kwargs):
 def render_home():
     countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
     countries = [country[0] for country in countries]
-    data = {countries}
     return render_template("home.html", data=countries)
 
 

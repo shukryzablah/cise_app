@@ -87,6 +87,12 @@ class Major(db.Model):
         return "<Major(cip_code={}, name={})>".format(self.cip_code,
                                                       self.name)
 
+    def serialize(self):
+        return {
+            'cip_code': self.cip_code,
+            'name': self.name,
+        }
+
 class Note(db.Model):
     __tablename__ = 'note'
     note_id = Column(Integer, primary_key=True)

@@ -30,15 +30,18 @@ def get_search_results(**kwargs):
     last_name = kwargs.pop("last_name", None)
     country = kwargs.pop("country", None)
     # Then construct the appropriate query by filtering.
-    query = Student.query.join(Student.passport_id)
+    #query = Student.query.join(Student.passport_id)
+    query = Student.query
     if(first_name is not None and first_name != ""):
         query = query.filter(Student.legal_first == first_name)
     if(last_name is not None and last_name != ""):
-        query = query.filter(Passport.legal_last == last_name)
+        query = query.filter(Student.legal_last == last_name)
     if(country is not None and country != ""):
+        query = query.join(Student.passport_id)
         query = query.filter(Passport.country == country)
-   # if(major is not None and major != ""):
-    #    query = query.filter(Passport. == country)
+    if(major is not None and major != ""):
+        query = query.join(has_major).join(Major)
+        query = query.filter(major == Major.name)
     # Execute the query and return response.
     results = query.all()
     return json.dumps([result.serialize() for result in results])

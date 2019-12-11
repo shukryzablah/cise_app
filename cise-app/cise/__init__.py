@@ -44,7 +44,7 @@ migrate = Migrate(app, db)
 # retrieve models #
 ###################
 
-from cise.models import Example, Student, Major, Passport, Note, Visa
+from cise.models import Example, Student, Major, Passport, Note, Visa, has_major
 #from cise.models import Example
 ######################
 # retrieve app views #
@@ -59,6 +59,6 @@ import cise.views
 @app.shell_context_processor
 def make_shell_context():
     return dict(app=app, db=db, Example=Example, Student=Student,
-                Major=Major, Passport=Passport, Note=Note, Visa=Visa)
+                Major=Major, Passport=Passport, Note=Note, Visa=Visa, has_major=has_major)
 
 

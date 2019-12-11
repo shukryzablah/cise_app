@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block view %}
+<h1 id="student"> hello </h1>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+    var info = {{data | safe}}
+    student = JSON.parse(info[0])
+    pport = JSON.parse(info[1])
+    major = JSON.parse(info[2])
+    legal_first = student.legal_first;
+    legal_middle = student.legal_middle;
+    legal_last = student.legal_last;
+    preferred_name = student.preferred_name;
+    dob = student.date_of_birth;
+    sex = student.sex;
+    class_year = student.class_year;
+    ac_box = student.ac_box;
+    ac_email = student.ac_email;
+    sevis_id = pport.sevis_id;
+    sevis_status = pport.sevis_status;
+    major_choice = major.name;
+    console.log(student)
+    console.log(legal_first)
+
+    $('#student').text(legal_first + " " + legal_last + " (" + preferred_name + ")");
+
+    passports = info[0].passport_id;
+    passports.forEach(function(passport){
+        $('#passports').append("<tr><th>Passport #</th><th>Country</th><th>Date of Expiration</th></tr>");
+        $('#passports').append("<tr><td>"+ passport['number'] +"</td><td>"+ passport['country'] +"</td><td>"+ passport['date_of_expiration'] +"</td></tr>");
+    });
+
+    notes = info[0].notes;
+    notes.forEach(function(note){
+        $('#notes').append("<tr><th>"+ note['date_created'] +"</th></tr><tr><td>"+ note['content'] +"</td></tr>");
+    });
+</script>
+<p>Student successfully added</p>
+{% endblock %}

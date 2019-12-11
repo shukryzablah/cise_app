@@ -45,6 +45,9 @@
     </form>
   </div>
 </div>
+<div class="row">
+    <button class="btn btn-secondary" onclick="goToPage()">Add a New Student</button>
+</div>
 {% endblock %}
 {% block js %}
   {{ super() }}
@@ -73,5 +76,9 @@
   $.each(major_options, function (key, entry) {
       major_dropdown.append($('<option></option>').text(entry));
   });
+
+  function goToPage(){
+    window.location.replace("/add");
+  }
   </script>
 {% endblock %}

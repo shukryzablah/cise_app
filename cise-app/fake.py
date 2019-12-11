@@ -49,8 +49,7 @@ class DataGen:
                                     pport = self.create_passport(student.sid)
                                     pport.country = country
                                     student.passport_id.append(pport)
-                                    if major == None:
-                                        major = self.create_major(student.sid)
+                                    major = self.create_major(student.sid)
                                     student.majors.append(major[0])
                                     return student, pport, major[0]
 

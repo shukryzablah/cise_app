@@ -24,9 +24,18 @@
     var info = {{data | safe}}
     console.log(info);
     sid = info[0].sid;
-    name = info[0].legal_first;
-    $('#info').append("<tr><td>"+sid+"</td><td>"+name+"</td></tr>");
-    $('#name').text(name);
+    legal_first = info[0].legal_first;
+    legal_middle = info[0].legal_middle;
+    legal_last = info[0].legal_last;
+    preferred_name = info[0].preferred_name;
+    dob = info[0].date_of_birth;
+    sex = info[0].sex;
+    class_year = info[0].class_year;
+    ac_box = info[0].ac_box;
+    ac_email = info[0].ac_email;
+
+    $('#info').append("<tr><td>"+sid+"</td><td>"+legal_first+"</td><td>"+legal_middle+"</td><td>"+legal_last+"</td><td>"+preferred_name+"</td><td>"+dob+"</td><td>"+sex+"</td><td>"+class_year+"</td><td>"+ac_box+"</td><td>"+ac_email+"</td></tr>");
+    $('#name').text(legal_first + " " + legal_middle + " " + legal_last + " (" + preferred_name + ")");
 </script>
 {% endblock %}
 

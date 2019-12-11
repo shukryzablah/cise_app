@@ -78,7 +78,7 @@ def get_student_profile(sid):
     # join on all info
     student = Student.query.filter(Student.sid == sid).all()
     # student = student.join(Student.passport_id).join(Student.visa_id).join(Student.note_id).join(Student.majors)
-    data = json.dumps([student.serialize() for student in student])
+    data = json.dumps([student.serialize_full() for student in student])
     return render_template("profile.html", data=data)
 
 

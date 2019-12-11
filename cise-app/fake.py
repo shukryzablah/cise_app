@@ -31,6 +31,20 @@ class DataGen:
         print("couldn't generate id")
         return None
 
+    def create_specified_student(self, date_of_birth=None, preferred_name=None, legal_first=None,
+                                legal_middle=None, legal_last=None, sex=None, class_year=None,
+                                ac_email=None, sevis_id=None):
+                                    if date_of_birth == None:
+                                        date_of_birth = fake.
+                                    return Student(sid=self.generate_id(self.seen_student_ids),
+                                                    date_of_birth=date_of_birth,
+                                                    preferred_name=preferred_name,
+                                                    legal_first=legal_first,
+                                                    legal_middle=legal_middle,
+                                                    legal_last=legal_last,
+                                                    sex=sex, class_year=class_year,
+                                                    ac_email=ac_email, sevis_id=sevis_id)
+
     def create_student(self):
         return Student(sid=self.generate_id(self.seen_student_ids),
                        date_of_birth=fake.date_of_birth(),

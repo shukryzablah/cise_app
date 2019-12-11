@@ -10,6 +10,7 @@
 from faker import Faker
 fake = Faker()
 from cise.models import Student, Visa, Major, Note, Staff, Passport
+import random
 
 class DataGen:
 
@@ -63,6 +64,23 @@ class DataGen:
         return Note(note_id=self.generate_id(self.seen_note_ids),
                     date_created=fake.date_this_decade(before_today=True),
                     content=fake.sentence(), student_sid=sid)
+
+    def create_major(self, sid):
+        total_majors = Major.query.all()
+        num_majors = random.randint(1,3)
+        majors = []
+        num_total_majors = len(total_majors)
+        i = 0
+        while i < num_majors:
+            rand = random.randint(0,num_total_majors-1)
+            choice = total_majors[rand]
+            if choice in majors:
+                continue
+            else:
+                majors.append(choice)
+                i = i+1
+        return majors;
+
     ''' 
     def create_major(self, sid):
         major_list = ('Math', 'Computer Science', 'Sports', 'Political Science',

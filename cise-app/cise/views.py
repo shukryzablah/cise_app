@@ -11,7 +11,6 @@ from flask import jsonify, request, redirect, url_for, render_template, json
 def render_home():
     countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
     countries = [country[0] for country in countries]
-
     majors = Major.query.with_entities(Major.name).distinct().order_by(Major.name).all()
     majors = [major[0] for major in majors]
     return render_template("home.html", countries=countries, majors=majors)
@@ -32,19 +31,21 @@ def get_search_results(**kwargs):
     last_name = kwargs.pop("last_name", None)
     country = kwargs.pop("country", None)
     # Then construct the appropriate query by filtering.
-    query = Student.query.join(Student.passport_id)
+    #query = Student.query.join(Student.passport_id)
+    query = Student.query
     if(first_name is not None and first_name != ""):
         query = query.filter(Student.legal_first == first_name)
     if(last_name is not None and last_name != ""):
-        query = query.filter(Passport.legal_last == last_name)
+        query = query.filter(Student.legal_last == last_name)
     if(country is not None and country != ""):
+        query = query.join(Student.passport_id)
         query = query.filter(Passport.country == country)
-   # if(major is not None and major != ""):
-    #    query = query.filter(Passport. == country)
+    if(major is not None and major != ""):
+        query = query.join(has_major).join(Major)
+        query = query.filter(major == Major.name)
     # Execute the query and return response.
     results = query.all()
     return json.dumps([result.serialize() for result in results])
-
 
 
 ###########

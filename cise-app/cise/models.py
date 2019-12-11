@@ -57,18 +57,24 @@ class Student(db.Model):
 
     def serialize_full(self):
         passport_list = [passport.serialize() for passport in self.passport_id]
+        notes = [note.serialize() for note in self.note_id]
         return {
             'sid': self.sid,
             'legal_first': self.legal_first,
             'legal_middle': self.legal_middle,
             'legal_last': self.legal_last,
-            'passport_id': passport_list,
             'date_of_birth': self.date_of_birth,
             'preferred_name': self.preferred_name,
             'sex': self.sex,
             'class_year': self.class_year,
             'ac_box': self.ac_box,
-            'ac_email': self.ac_email
+            'ac_email': self.ac_email,
+            'sevis_id': self.sevis_id,
+            'sevis_status': self.sevis_status,
+            'program_start_date': self.program_start_date,
+            'program_end_date': self.program_end_date,
+            'passport_id': passport_list,
+            'notes': notes
         }
        
 class Visa(db.Model):

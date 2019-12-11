@@ -82,6 +82,19 @@ def get_student_profile(sid):
     return render_template("profile.html", data=data)
 
 
+################
+# Add students #
+################
+
+@app.route('/add')
+def add_page():
+    return render_template("add.html")
+
+@app.route('/add_student')
+def add_student():
+    return render_template("added.html")
+
+
 #########
 # Other #
 #########

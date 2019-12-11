@@ -3,10 +3,26 @@ from cise.models import Student, Passport
 #from cise.models import Example
 from flask import jsonify, request, redirect, url_for, render_template, json
 
+def get_search_results(**kwargs):
+    # First get possible values to filter by.
+    first_name = kwargs.pop("first_name", None)
+    country = kwargs.pop("country", None)
+    # Then construct the appropriate query by filtering.
+    query = Student.query.join(Student.passport_id)
+    if(first_name is not None and first_name != ""):
+        query = query.filter(Student.legal_first == first_name)
+    if(country is not None and country != ""):
+        query = query.filter(Passport.country == country)
+    # Execute the query and return response.
+    results = query.all()
+    return json.dumps([result.serialize() for result in results])
 
 @app.route('/')
 def render_home():
-    return render_template("home.html")
+    countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
+    countries = [country[0] for country in countries]
+    data = {countries}
+    return render_template("home.html", data=countries)
 
 
 @app.route('/hello')
@@ -39,22 +55,6 @@ def handle_search_request():
     return redirect(
         url_for("render_results", **request.form, _method="GET")
     )
-
-
-def get_search_results(**kwargs):
-    # First get possible values to filter by.
-    first_name = kwargs.pop("first_name", None)
-    country = kwargs.pop("country", None)
-    # Then construct the appropriate query by filtering.
-    query = Student.query.join(Student.passport_id)
-    if(first_name is not None and first_name != ""):
-        query = query.filter(Student.legal_first == first_name)
-    if(country is not None and country != ""):
-        query = query.filter(Passport.country == country)
-    # Execute the query and return response.
-    results = query.all()
-    return json.dumps([result.serialize() for result in results])
-
 
 @app.route('/search-results')
 def render_results():

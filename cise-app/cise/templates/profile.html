@@ -5,7 +5,7 @@
     <table id="info" class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th id="sid">Student ID</th>
+                <th>Student ID</th>
                 <th>Legal First Name</th>
                 <th>Legal Middle Name</th>
                 <th>Legal Last Name</th>
@@ -19,13 +19,14 @@
         </thead>
     </table>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>
     var info = {{data | safe}}
     console.log(info);
-    sid = info[0].legal_first;
-    console.log(sid);
-    $(document).getElementById('sid').innerHTML = sid;
+    sid = info[0].sid;
+    name = info[0].legal_first;
+    $('#info').append("<tr><td>"+sid+"</td><td>"+name+"</td></tr>");
+    $('#name').text(name);
 </script>
 {% endblock %}
 

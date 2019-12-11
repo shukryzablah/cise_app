@@ -30,6 +30,7 @@ def get_search_results(**kwargs):
     first_name = kwargs.pop("first_name", None)
     last_name = kwargs.pop("last_name", None)
     country = kwargs.pop("country", None)
+    major = kwargs.pop("major", None)
     # Then construct the appropriate query by filtering.
     #query = Student.query.join(Student.passport_id)
     query = Student.query

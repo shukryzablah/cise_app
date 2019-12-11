@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, Date
 from cise import db
 
-
 class Example(db.Model):
     __tablename__ = 'example'
     eid = Column(Integer, primary_key=True)
@@ -12,6 +11,15 @@ class Example(db.Model):
         return "<Example(text='{}', date='{}')>"\
                 .format(self.text, self.date_created)
 
+has_major = db.Table('has_major',
+                     db.Column('sid', Integer,
+                               db.ForeignKey('student.sid'),
+                               primary_key=True),
+                     db.Column('cid_code', String,
+                               db.ForeignKey('major.cip_code'),
+                               primary_key=True))
+
+    
 class Student(db.Model):
     __tablename__ = 'student'
     sid = Column(Integer, primary_key=True)
@@ -32,6 +40,8 @@ class Student(db.Model):
     passport_id = db.relationship('Passport', backref='student', lazy=True)
     visa_id = db.relationship('Visa', backref='student', lazy=True)
     note_id = db.relationship('Note', backref='student', lazy=True)
+    majors = db.relationship('Major', secondary=has_major, lazy='subquery',
+                             backref=db.backref('students', lazy=True))
 
     def __repr__(self):
         return "<Student(sid={}, class_year={})>".format(self.sid,
@@ -65,8 +75,8 @@ class Visa(db.Model):
             'file_path': self.file_path,
             'student_sid': self.student_sid
         }
- 
-            
+
+
 class Major(db.Model):
     __tablename__ = 'major'
     cip_code = Column(String, primary_key=True)

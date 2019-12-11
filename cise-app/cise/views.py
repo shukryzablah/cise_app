@@ -2,6 +2,8 @@ from cise import app
 from cise.models import *
 from flask import jsonify, request, redirect, url_for, render_template, json
 
+from datetime import date
+
 from cise import db
 from fake import DataGen
 
@@ -90,7 +92,8 @@ def get_student_profile(sid):
 def handle_note_creation(sid):
     # Add note to student in database
     s = Student.query.filter(Student.sid == sid).first()
-    n = Note(content=request.form.get("notecontent"))
+    n = Note(date_created=date.today(),
+             content=request.form.get("notecontent"))
     db.session.add(n)
     db.session.commit()
     s.note_id.append(n)

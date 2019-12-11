@@ -11,7 +11,8 @@ from flask import jsonify, request, redirect, url_for, render_template, json
 def render_home():
     countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
     countries = [country[0] for country in countries]
-    return render_template("home.html", data=countries)
+    majors = []
+    return render_template("home.html", countries=countries,majors=majors)
 
 @app.route('/search', methods=['POST'])
 def handle_search_request():
@@ -42,48 +43,12 @@ def get_search_results(**kwargs):
     results = query.all()
     return json.dumps([result.serialize() for result in results])
 
-@app.route('/')
-def render_home():
-    countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
-    countries = [country[0] for country in countries]
-
-    majors = []
-
-    # majors = Student.query.with_entities(Student.major).distinct().order_by(Student.major).all()
-    # majors = [country[0] for country in countries]
-    return render_template("home.html", countries=countries, majors=majors)
 
 
-@app.route('/hello')
-def hello_world():
-    return Passport.query.with_entities(Passport.country).distinct()
+###########
+# Results #
+###########
 
-
-@app.route('/brandt')
-def brandt_route():
-    return 'welcome to my route'
-
-
-@app.route('/test')
-def test_route():
-    return render_template("layout.html")
-
-
-@app.route('/get-student-passport')
-def get_student_passport():
-    join = Student.query.join(Passport).first()
-    return jsonify(join.serialize())
-
-
-#####################################################
-# Handle the search from homepage and the response. #
-#####################################################
-
-@app.route('/search', methods=['POST'])
-def handle_search_request():
-    return redirect(
-        url_for("render_results", **request.form, _method="GET")
-    )
 
 @app.route('/search-results')
 def render_results():

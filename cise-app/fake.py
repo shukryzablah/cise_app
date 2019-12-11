@@ -13,6 +13,8 @@ from cise.models import Student, Visa, Major, Note, Staff, Passport
 import random
 from datetime import date
 
+from cise import db
+
 class DataGen:
 
     def __init__(self):
@@ -49,9 +51,10 @@ class DataGen:
                                     pport = self.create_passport(student.sid)
                                     pport.country = country
                                     student.passport_id.append(pport)
-                                    major = self.create_major(student.sid)
-                                    student.majors.append(major[0])
-                                    return student, pport, major[0]
+                                    #major = self.create_major(student.sid)
+                                    major = db.session.query(Major).filter(Major.name==major).all()[0]
+                                    student.majors.append(major)
+                                    return student, pport, major
 
     def create_student(self):
         return Student(sid=self.generate_id(self.seen_student_ids),

@@ -44,7 +44,6 @@ def get_search_results(**kwargs):
     return json.dumps([result.serialize() for result in results])
 
 
-
 ###########
 # Results #
 ###########

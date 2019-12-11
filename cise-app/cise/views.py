@@ -1,5 +1,5 @@
 from cise import app
-from cise.models import Student, Passport
+from cise.models import *
 #from cise.models import Example
 from flask import jsonify, request, redirect, url_for, render_template, json
 
@@ -21,7 +21,12 @@ def get_search_results(**kwargs):
 def render_home():
     countries = Passport.query.with_entities(Passport.country).distinct().order_by(Passport.country).all()
     countries = [country[0] for country in countries]
-    return render_template("home.html", data=countries)
+
+    majors = []
+
+    # majors = Student.query.with_entities(Student.major).distinct().order_by(Student.major).all()
+    # majors = [country[0] for country in countries]
+    return render_template("home.html", countries=countries, majors=majors)
 
 
 @app.route('/hello')
@@ -70,6 +75,8 @@ def render_results():
 
 @app.route('/student/<int:sid>')
 def get_student_profile(sid):
-    return render_template("profile.html", sid=sid)
+    # join on all info
+    student = Student.query.filter(Student.sid == sid).all()
+    return render_template("profile.html", student=student)
 
 

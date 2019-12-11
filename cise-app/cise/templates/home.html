@@ -50,16 +50,28 @@
   {{ super() }}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script>
-  var country_options = {{data | safe}}
+  var country_options = {{countries | safe}}
+  var major_options = {{majors | safe}}
+
   let country_dropdown = $('#country');
   country_dropdown.empty();
+
+  let major_dropdown = $('#major');
+  major_dropdown.empty();
 
   country_dropdown.append('<option selected="true" value="">-</option>');
   country_dropdown.prop('selectedIndex', 0);
 
-  // Populate dropdown with list of countries
+  major_dropdown.append('<option selected="true" value="">-</option>');
+  major_dropdown.prop('selectedIndex', 0);
+
+  // Populate dropdown with list of countries/majors
   $.each(country_options, function (key, entry) {
       country_dropdown.append($('<option></option>').text(entry));
+  });
+
+  $.each(major_options, function (key, entry) {
+      major_dropdown.append($('<option></option>').text(entry));
   });
   </script>
 {% endblock %}

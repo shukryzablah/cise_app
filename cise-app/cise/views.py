@@ -35,15 +35,15 @@ def get_search_results(**kwargs):
     #query = Student.query.join(Student.passport_id)
     query = Student.query
     if(first_name is not None and first_name != ""):
-        query = query.filter(Student.legal_first == first_name)
+        query = query.filter(Student.legal_first.ilike(first_name))
     if(last_name is not None and last_name != ""):
-        query = query.filter(Student.legal_last == last_name)
+        query = query.filter(Student.legal_last.ilike(last_name))
     if(country is not None and country != ""):
         query = query.join(Student.passport_id)
-        query = query.filter(Passport.country == country)
+        query = query.filter(Passport.country.ilike(country))
     if(major is not None and major != ""):
         query = query.join(has_major).join(Major)
-        query = query.filter(major == Major.name)
+        query = query.filter(Major.name.ilike(major))
     # Execute the query and return response.
     results = query.all()
     return json.dumps([result.serialize() for result in results])

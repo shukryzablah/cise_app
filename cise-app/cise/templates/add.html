@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block view %}
-<form action="{{ url_for('handle_search_request') }}" method="POST">
+<form action="{{ url_for('add_student') }}" method="POST">
         <div class="row">
       <div class="col">
         <label for="first">First Name</label>
@@ -29,6 +29,16 @@
               <option>COSC</option>
               <option>MATH</option>
         </select>
+      </div>
+        </div>
+        <div class="row">
+      <div class="col">
+        <label for="class_year">Class Year</label>
+        <input class="form-control" type="text" placeholder="Class Year" id="class_year" name="class_year">
+      </div>
+      <div class="col">
+        <label for="ac_email">AC Box</label>
+        <input class="form-control" type="text" placeholder="AC Email" id="ac_email" name="ac_email">
       </div>
         </div>
         <hr>

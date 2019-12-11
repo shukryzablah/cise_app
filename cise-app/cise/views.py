@@ -2,6 +2,10 @@ from cise import app
 from cise.models import *
 from flask import jsonify, request, redirect, url_for, render_template, json
 
+from cise import db
+from fake import DataGen
+
+dg = DataGen()
 
 ############
 # Homepage #
@@ -90,9 +94,21 @@ def get_student_profile(sid):
 def add_page():
     return render_template("add.html")
 
-@app.route('/added_student')
+@app.route('/added_student', methods=['POST'])
 def add_student():
-    return render_template("added.html")
+    first = request.args.get('first')
+    last = request.args.get('last')
+    country = request.args.get('country')
+    major = request.args.get('major')
+    class_year = request.args.get('class_year')
+    ac_email = request.args.get('ac_email')
+    stu, pport, major = dg.create_specified_student(legal_first=first, legal_last=last, country=country,
+                                    major=major, class_year=class_year, ac_email=ac_email)
+    data = []
+    data.append(json.dumps(stu.serialize_full()))
+    data.append(json.dumps(pport.serialize()))
+    data.append(json.dumps(major.serialize()))
+    return render_template("added.html", data=data)
 
 
 #########

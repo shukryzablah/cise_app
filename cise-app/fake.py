@@ -34,7 +34,7 @@ class DataGen:
 
     def create_specified_student(self, date_of_birth=None, preferred_name=None, legal_first="John",
                                 legal_middle="The Hulk", legal_last="Doe", sex="None", class_year=2020,
-                                ac_email="none@amherst.edu", sevis_id="N0004232342"):
+                                ac_email="none@amherst.edu", sevis_id="N0004232342", country="None", major=None):
                                     if date_of_birth == None:
                                         date_of_birth = date(2000,1,1)
                                     student = Student(sid=self.generate_id(self.seen_student_ids),
@@ -45,7 +45,14 @@ class DataGen:
                                                     legal_last=legal_last,
                                                     sex=sex, class_year=class_year,
                                                     ac_email=ac_email, sevis_id=sevis_id)
-                                    return student
+
+                                    pport = self.create_passport(student.sid)
+                                    pport.country = country
+                                    student.passport_id.append(pport)
+                                    if major == None:
+                                        major = self.create_major(student.sid)
+                                    student.majors.append(major[0])
+                                    return student, pport, major[0]
 
     def create_student(self):
         return Student(sid=self.generate_id(self.seen_student_ids),

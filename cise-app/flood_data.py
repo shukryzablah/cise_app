@@ -23,19 +23,25 @@ if __name__ == "__main__":
         if(visa_rand < 8):
             visa = dg.create_visa(curr_sid)
             visas.append(visa)
-
+            student.visa_id.append(visa)
+        
         if(major_rand < 9):
             major = dg.create_major(curr_sid)
-            majors.append(major)
+            for m in major:
+                majors.append(m)
+                student.majors.append(m)
 
         if(note_rand < 7):
             note = dg.create_note(curr_sid)
             notes.append(note)
+            student.note_id.append(note)
 
         if(passport_rand < 10):
             passport = dg.create_passport(curr_sid)
             passports.append(passport)
+            student.passport_id.append(passport)
 
+        
     for i in range(10):
         print(students[i])
         print(visas[i])

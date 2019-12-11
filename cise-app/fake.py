@@ -57,17 +57,17 @@ class DataGen:
                     date_of_issue=fake.date_this_decade(before_today=True),
                     date_of_expiration=fake.date_this_decade(),
                     visa_type="OPT",
-                    file_path="test/file-path")
+                    file_path="test/file-path", student_sid=sid)
 
     def create_note(self, sid):
         return Note(note_id=self.generate_id(self.seen_note_ids),
                     date_created=fake.date_this_decade(before_today=True),
-                    content=fake.sentence())
-    
+                    content=fake.sentence(), student_sid=sid)
+    ''' 
     def create_major(self, sid):
         major_list = ('Math', 'Computer Science', 'Sports', 'Political Science',
                         'English', 'LLAS', 'Economics', 'Black Studies', 'LJST')
         major = fake.random_element(elements=major_list)
         return Major(cip_code=fake.lexify(text="???", letters='abcdefghijklmnopqrstuvwxyz'),
-                     name=major, abbreviation=major[:3])
- 
+                     name=major, abbreviation=major[:3], student_sid=sid)
+    ''' 

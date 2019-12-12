@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block view %}
+<div class="row">
+  <div class="col">
+    <h1>Search Directory</h1>
+  </div>
+  <div class="col">
+    <form action="{{ url_for('handle_search_request') }}" method="POST">
+      <div class="row">
+	<div class="col">
+	  <label for="first">First Name</label>
+	  <input class="form-control" type="text" placeholder="First Name" id="first" name="first">
+	</div>
+	<div class="col">
+	  <label for="last">Last Name</label>
+	  <input class="form-control" type="text" placeholder="Last Name" id="last" name="last">
+	</div>
+      </div>
+      <div class="row">
+	<div class="col">
+	  <label for="country">Country of Origin</label>
+	  <select class="form-control" id="country" name="country">
+            <option value=""> - </option>
+            <option>El Salvador</option>
+            <option>Germany</option>
+            <option>South Korea</option>
+	  </select>
+	</div>
+	<div class="col">
+	  <label for="major">Major</label>
+	  <select class="form-control" id="major" name="major">
+            <option value=""> - </option>
+            <option>STAT</option>
+            <option>COSC</option>
+            <option>MATH</option>
+	  </select>
+	</div>
+      </div>
+      <hr>
+      <div class="row">
+	<div class="col">
+    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="button" class="btn btn-secondary" onclick="goToPage()">Add a New Student</button>
+	</div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+  {{ super() }}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+  var country_options = {{countries | safe}}
+  var major_options = {{majors | safe}}
+
+  let country_dropdown = $('#country');
+  country_dropdown.empty();
+
+  let major_dropdown = $('#major');
+  major_dropdown.empty();
+
+  country_dropdown.append('<option selected="true" value="">-</option>');
+  country_dropdown.prop('selectedIndex', 0);
+
+  major_dropdown.append('<option selected="true" value="">-</option>');
+  major_dropdown.prop('selectedIndex', 0);
+
+  // Populate dropdown with list of countries/majors
+  $.each(country_options, function (key, entry) {
+      country_dropdown.append($('<option></option>').text(entry));
+  });
+
+  $.each(major_options, function (key, entry) {
+      major_dropdown.append($('<option></option>').text(entry));
+  });
+
+  function goToPage(){
+    window.location.replace("/add");
+  }
+  </script>
+{% endblock %}

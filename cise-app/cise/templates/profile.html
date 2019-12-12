@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block view %}
+<div class="flex-column">
+    <h1 id="name">Student not found. </h1>
+    <table id="info1" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Legal First Name</th>
+                <th>Legal Middle Name</th>
+                <th>Legal Last Name</th>
+                <th>Preferred Name</th>
+                <th>Date of Birth</th>
+                <th>Sex</th>
+                <th>Class Year</th>
+            </tr>
+        </thead>
+    </table>
+    <table id="info2" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>AC Box Number</th>
+                    <th>AC Email</th>
+                    <th>Sevis ID</th>
+                    <th>Sevis Status</th>
+                    <th>Program Start Date</th>
+                    <th>Program End Date</th>
+                </tr>
+            </thead>
+        </table>
+        <h3>Passports</h3>
+        <table id="passports" class="table table-striped table-bordered"></table>
+        <h3>Notes</h3>
+        <table id="notes" class="table table-bordered"></table>
+        <form action="{{ url_for('handle_note_creation', sid=sid) }}" method="POST">
+                <label for="notecontent">Add a note:</label>
+                <input class="form-control" type="text" placeholder="Write a note..." id="notecontent" name="notecontent">
+                <button type="submit" class="btn btn-primary">Create Note</button>
+        </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+    var info = {{data | safe}}
+    sid = info[0].sid;
+    legal_first = info[0].legal_first;
+    legal_middle = info[0].legal_middle;
+    legal_last = info[0].legal_last;
+    preferred_name = info[0].preferred_name;
+    dob = info[0].date_of_birth;
+    sex = info[0].sex;
+    class_year = info[0].class_year;
+    ac_box = info[0].ac_box;
+    ac_email = info[0].ac_email;
+    sevis_id = info[0].sevis_id;
+    sevis_status = info[0].sevis_status;
+    program_start_date = info[0].program_start_date;
+    program_end_date = info[0].program_end_date;
+
+    $('#info1').append("<tr><td>"+sid+"</td><td>"+legal_first+"</td><td>"+legal_middle+"</td><td>"+legal_last+"</td><td>"+preferred_name+"</td><td>"+dob+"</td><td>"+sex+"</td><td>"+class_year+"</td></tr>");
+    $('#info2').append("<tr><td>"+ac_box+"</td><td>"+ac_email+"</td><td>"+sevis_id+"</td><td>"+sevis_status+"</td><td>"+program_start_date+"</td><td>"+program_end_date+"</td></tr>");
+    $('#name').text(legal_first + " " + legal_middle + " " + legal_last + " (" + preferred_name + ")");
+
+    passports = info[0].passport_id;
+    passports.forEach(function(passport){
+        $('#passports').append("<tr><th>Passport #</th><th>Country</th><th>Date of Expiration</th></tr>");
+        $('#passports').append("<tr><td>"+ passport['number'] +"</td><td>"+ passport['country'] +"</td><td>"+ passport['date_of_expiration'] +"</td></tr>");
+    });
+
+    notes = info[0].notes;
+    notes.forEach(function(note){
+        $('#notes').append("<tr><th>"+ note['date_created'] +"</th></tr><tr><td>"+ note['content'] +"</td></tr>");
+    });
+</script>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block head %}
+  {{ super() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.bootstrap4.min.css">
+{% endblock %}
+{% block view %}
+<div class="row">
+  <div>
+    <h1>Directory</h1>
+  </div>
+  <div id="studentstbl_wrapper" class="col">
+    <table id="studentstbl" class="table table-striped table-bordered table-hover">
+      <thead>
+	<tr>
+	  <th>Student ID</th>
+	  <th>First Name</th>
+	  <th>Last Name</th>
+	</tr>
+      </thead>
+    </table>
+  </div>
+</div>
+{% endblock %}
+{% block js %}
+  {{ super() }}
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script>
+  var table_data = {{data | safe}}
+  $(document).ready(function () {
+      var table = $('#studentstbl').DataTable({
+	  "select": true,
+	  "data": table_data,
+	  //"dom": 'Bfrtip',
+	  "buttons": [
+              'csv', 'pdf'
+          ],
+	  "columns": [
+	      {"data": "sid"},
+	      {"data": "legal_first"},
+	      {"data": "legal_last"}
+	  ]
+      });
+
+      table.on('select', function(e, dt, type, indexes) {
+	  var sid = table.row(indexes).data()['sid'];
+	  window.location.href = "/student/" + sid;
+      })
+
+      table.buttons().container()
+          .appendTo( '#studentstbl_wrapper .col-md-6:eq(0)' );
+  });
+</script>
+{% endblock %}
